@@ -2,7 +2,7 @@
 
 const Image = use('App/Models/Image')
 const Animal = use('App/Models/Animal')
-const Helpers = use('Helpers')
+const Drive = use('Drive')
 
 /**
  * Resourceful controller for interacting with images
@@ -12,7 +12,7 @@ class ImageController {
    * Create/save a new image.
    * POST images
    */
-  async store ({ params, response }) {
+  async store ({ request ,params, response }) {
     const animal = await Animal.findOrFail(params.id)
 
     await request.multipart.file('image', {
