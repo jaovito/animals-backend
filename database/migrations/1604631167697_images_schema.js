@@ -15,6 +15,9 @@ class ImagesSchema extends Schema {
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
       table.string('path').notNullable()
+      table.string('key').notNullable()
+      table.string('url').notNullable()
+      table.string('content_type').notNullable()
       table.timestamps()
     })
   }

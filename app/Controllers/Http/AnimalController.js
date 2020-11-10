@@ -4,6 +4,8 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 const Animal = use('App/Models/Animal');
+const Drive = use('Drive')
+const Image = use('App/Models/Image')
 /**
  * Resourceful controller for interacting with animals
  */
@@ -42,31 +44,14 @@ class AnimalController {
       'reason_adoption',
       'breed',
       'citie',
+      'contact'
     ])
 
     const {user} = auth
 
-    const animal = await Animal.create({user_id: user.id, contact: user.whatsapp, ...data})
+    const animal = await Animal.create({user_id: user.id, ...data})
 
-    const images = request.file('image', {
-      types: ['image'],
-      size: '2mb'
-    })
-
-    await images.moveAll(Helpers.tmpPath('uploads'), file => ({
-      name: `${Date.now()}-${file.clientName}`
-    }))
-
-    if (!images.movedAll()) {
-      return images.errors()
-    }
-
-    await Promise.all(
-      images
-        .movedList()
-        .map(image => animal.images().create({ path: image.fileName, animal_id: animal.id }))
-    )
-
+    return animal
   }
 
   /**
@@ -87,17 +72,6 @@ class AnimalController {
   }
 
   /**
-   * Update animal details.
-   * PUT or PATCH animals/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async update ({ params, request, response }) {
-  }
-
-  /**
    * Delete a animal with id.
    * DELETE animals/:id
    *
@@ -105,7 +79,14 @@ class AnimalController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
+  async destroy ({ params, response, auth }) {
+    const animal = await Animal.findOrFail(params.id)
+
+    if (animal.id !== auth.user.id) {
+      return response.status(401).send()
+    }
+
+    await animal.delete()
   }
 }
 

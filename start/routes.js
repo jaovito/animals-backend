@@ -21,7 +21,7 @@ Route.post('/register', 'UserController.register')
 Route.post('/authenticate', 'UserController.authenticate')
 
 Route.group(() => {
-  Route.resource('/animals', 'AnimalController')
-  Route.resource('/city', 'CityController')
+  Route.resource('/animals', 'AnimalController').apiOnly().except('update')
+  Route.post('/animal/:id', 'ImageController.store')
+  Route.resource('/city', 'CityController').apiOnly()
 }).middleware('auth')
-Route.get('images/:path', 'ImageController.show')
