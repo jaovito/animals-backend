@@ -1,6 +1,5 @@
 'use strict'
 const User = use('App/Models/User')
-const City = use('App/Models/City')
 
 class UserController {
     async register({ request }) {
@@ -10,10 +9,11 @@ class UserController {
             'whatsapp',
             'email',
             'password',
+            'city'
         ])
         
         const user = await User.create(data)
-        
+
         return user
     }
 
@@ -25,17 +25,6 @@ class UserController {
         return token
     }
 
-    async citiesCreate({auth}) {
-      const user = auth.user
-
-      const cities = request.only([
-        'city'
-      ])
-
-      const city = await City.create({user_id: user.id, ...cities})
-
-      return city
-    }
 }
 
 module.exports = UserController

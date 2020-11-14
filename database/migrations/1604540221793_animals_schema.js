@@ -20,6 +20,7 @@ class AnimalsSchema extends Schema {
       table.string('breed').notNullable()
       table.string('citie').notNullable()
       table.string('contact').notNullable()
+      table.boolean('adopted').defaultTo(false).notNullable()
       table.timestamps()
     })
   }

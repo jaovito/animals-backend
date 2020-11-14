@@ -39,9 +39,6 @@ class User extends Model {
     return this.hasMany('App/Models/Animals')
   } 
 
-  cities () {
-    return this.hasMany('App/Models/City')
-  } 
 }
 
 module.exports = User

@@ -4,13 +4,9 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 const Animal = use('App/Models/Animal');
-const Drive = use('Drive')
-const Image = use('App/Models/Image')
 /**
  * Resourceful controller for interacting with animals
  */
-const Helpers = use('Helpers')
-
 class AnimalController {
   /**
    * Show a list of all animals.
@@ -23,8 +19,10 @@ class AnimalController {
    */
   async index ({ auth }) {
     const animal = await Animal.query()
-      .with('images')
-      .fetch()
+    .where('citie', auth.user.city)
+    .where('adopted', false)
+    .with('images')
+    .fetch()
 
     return animal
   }
@@ -71,6 +69,22 @@ class AnimalController {
     return animal
   }
 
+  async update ({ params, request, response, auth }) {
+    const animal = await Animal.findOrFail(params.id)
+    
+    const {adopted} = request.all()
+
+    if (animal.id !== auth.user.id) {
+      return response.status(401).send()
+    }
+
+    animal.adopted = adopted
+
+    await animal.save()
+  }
+
+
+
   /**
    * Delete a animal with id.
    * DELETE animals/:id
@@ -82,7 +96,7 @@ class AnimalController {
   async destroy ({ params, response, auth }) {
     const animal = await Animal.findOrFail(params.id)
 
-    if (animal.id !== auth.user.id) {
+    if (animal.id !== auth.user.id || animal.adopted === true) {
       return response.status(401).send()
     }
 

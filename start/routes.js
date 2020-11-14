@@ -19,9 +19,13 @@ const Route = use('Route')
 
 Route.post('/register', 'UserController.register')
 Route.post('/authenticate', 'UserController.authenticate')
+Route.post('/forgot', 'ResetPasswordController.forgot')
+Route.post('/reset', 'ResetPasswordController.store')
 
 Route.group(() => {
-  Route.resource('/animals', 'AnimalController').apiOnly().except('update')
+  Route.resource('/animals', 'AnimalController').apiOnly()
   Route.post('/animal/:id', 'ImageController.store')
   Route.resource('/city', 'CityController').apiOnly()
+  Route.get('/adopted', 'AdoptedAnimalController.index')
+  Route.resource('/user', 'UserDatumController').apiOnly().except(['destroy', 'store'])
 }).middleware('auth')
