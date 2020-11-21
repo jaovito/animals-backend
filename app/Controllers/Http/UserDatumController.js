@@ -1,6 +1,7 @@
 'use strict'
 
 const User = use('App/Models/User')
+const Animal = use('App/Models/Animal')
 
 class UserDatumController {
     async index({ auth }) {
@@ -27,6 +28,12 @@ class UserDatumController {
         await user.save()
 
         return user
+    }
+
+    async animals({auth}) {
+        const animal = await Animal.query().where('user_id', auth.user.id).with('images').fetch()
+
+        return animal
     }
 }
 

@@ -28,4 +28,5 @@ Route.group(() => {
   Route.resource('/city', 'CityController').apiOnly()
   Route.get('/adopted', 'AdoptedAnimalController.index')
   Route.resource('/user', 'UserDatumController').apiOnly().except(['destroy', 'store'])
+  Route.get('animal', 'UserDatumController.animals')
 }).middleware('auth')
