@@ -26,4 +26,31 @@ Run the following command to run startup migrations.
 ```js
 adonis migration:run
 ```
-# animals-backend
+# Animals Backend
+Animals é um projeto focado na adoção de animais, onde se pode publicar e visualizar seus animais e de outras pessoas, podendo entrar em contato para adoção, além de poder deletar ou definir como adotado seu próprio bixinho.
+Este repositório é apenas o backend.
+
+## 🚀 Tecnologias
+
+Esse projeto foi desenvolvido com as seguintes tecnologias:
+
+- [Node.js](https://nodejs.org/en/)
+- [Adonis](https://adonisjs.com)
+- [PostgreSQL](https://www.postgresql.org)
+
+## Backend
+O [backend](https://github.com/jaovito/animals-backend) foi publicado separadamente e desenvolvido com adonis
+
+## Instalação
+
+```bash
+$ git clone https://github.com/jaovito/animals-backend.git
+```
+
+```bash
+$ npm install 
+```
+
+```bash
+$ npm start
+```
