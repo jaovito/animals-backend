@@ -39,7 +39,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - [PostgreSQL](https://www.postgresql.org)
 
 ## Backend
-O [backend](https://github.com/jaovito/animals-backend) foi publicado separadamente e desenvolvido com adonis
+O [frontend](https://github.com/jaovito/animals-mobile) foi publicado separadamente e desenvolvido com [expo](https://docs.expo.io)
 
 ## Instalação
 
