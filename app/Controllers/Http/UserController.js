@@ -6,6 +6,7 @@ class UserController {
         const data = request.only([
             'name',
             'second_name',
+            'cpf',
             'whatsapp',
             'email',
             'password',

@@ -7,9 +7,9 @@ class UserDatumController {
     async index({ auth }) {
         const userData = await User.findOrFail(auth.user.id)
 
-        const {id, name, second_name, whatsapp, city} = userData
+        const {id, name, second_name, cpf, whatsapp, city} = userData
         
-        return {id, name, second_name, whatsapp, city}
+        return {id, name, second_name, cpf, whatsapp, city}
     }
 
     async update({ auth, request }) {
